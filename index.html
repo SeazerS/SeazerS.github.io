@@ -21,7 +21,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
-
     body::after {
       content: '';
       position: fixed;
@@ -32,7 +31,6 @@
       pointer-events: none;
       z-index: 0;
     }
-
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 20px 64px;
@@ -45,7 +43,6 @@
     .nav-links { display: flex; gap: 40px; list-style: none; }
     .nav-links a { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
     .nav-links a:hover { color: var(--accent); }
-
     #hero {
       position: relative; min-height: 100vh;
       display: flex; align-items: center;
@@ -81,7 +78,6 @@
       display: flex; gap: 16px;
       opacity: 0; animation: fadeUp 0.8s ease 1s forwards;
     }
-
     .btn-primary {
       padding: 14px 32px; background: var(--accent);
       color: #050810; font-family: 'IBM Plex Mono', monospace;
@@ -97,19 +93,16 @@
       text-decoration: none; transition: all 0.3s; display: inline-block;
     }
     .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
     .hud { position: absolute; width: 36px; height: 36px; }
     .hud-tl { top: 90px; left: 28px; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
     .hud-tr { top: 90px; right: 28px; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
     .hud-bl { bottom: 30px; left: 28px; border-bottom: 2px solid var(--accent); border-left: 2px solid var(--accent); opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
     .hud-br { bottom: 30px; right: 28px; border-bottom: 2px solid var(--accent); border-right: 2px solid var(--accent); opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
-
     .hero-hex {
       position: absolute; right: 64px; top: 50%;
       transform: translateY(-50%);
       opacity: 0; animation: fadeIn 1.5s ease 0.8s forwards, float 7s ease-in-out 2s infinite;
     }
-
     section { position: relative; z-index: 1; padding: 110px 64px; }
     .section-label {
       font-family: 'IBM Plex Mono', monospace; font-size: 9px;
@@ -122,7 +115,6 @@
       font-size: clamp(38px, 5vw, 62px);
       font-weight: 700; letter-spacing: -1px; margin-bottom: 64px;
     }
-
     #about { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: start; }
     .about-text { font-size: 16px; line-height: 1.85; color: #607898; }
@@ -136,7 +128,6 @@
     }
     .stat-number { font-family: 'Rajdhani', sans-serif; font-size: 44px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 8px; }
     .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; }
-
     #games { background: var(--bg); }
     .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
     .game-card { background: var(--card-bg); border: 1px solid var(--border); overflow: hidden; transition: all 0.35s; }
@@ -155,7 +146,6 @@
     .game-link { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
     .game-link:hover { color: var(--accent); }
     .game-link::after { content: ' →'; }
-
     #work3d { background: var(--bg2); border-top: 1px solid var(--border); }
     .artstation-card {
       display: flex; align-items: center; gap: 48px;
@@ -175,7 +165,6 @@
     .artstation-title { font-family: 'Rajdhani', sans-serif; font-size: 32px; font-weight: 700; margin-bottom: 12px; }
     .artstation-desc { font-size: 14px; line-height: 1.7; color: #4a6080; margin-bottom: 24px; }
     .artstation-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-
     #skills { background: var(--bg2); border-top: 1px solid var(--border); }
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .skill-group { padding: 32px; background: var(--card-bg); border: 1px solid var(--border); }
@@ -185,25 +174,21 @@
     .skill-name { font-size: 13px; color: #607898; }
     .skill-bar { width: 80px; height: 2px; background: var(--border); position: relative; }
     .skill-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); transition: width 1s ease; }
-
     #contact { background: var(--bg); border-top: 1px solid var(--border); }
     .contact-inner { max-width: 580px; }
     .contact-text { font-size: 16px; line-height: 1.75; color: #4a6080; margin-bottom: 48px; }
     .contact-links { display: flex; gap: 16px; flex-wrap: wrap; }
-
     footer {
       padding: 24px 64px; border-top: 1px solid var(--border);
       display: flex; justify-content: space-between; align-items: center;
       background: var(--bg); position: relative; z-index: 1;
     }
     .footer-text { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--text-muted); }
-
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes float { 0%, 100% { transform: translateY(-50%); } 50% { transform: translateY(-53%); } }
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
@@ -234,7 +219,6 @@
   <div class="hud hud-tr"></div>
   <div class="hud hud-bl"></div>
   <div class="hud hud-br"></div>
-
   <div class="hero-hex">
     <svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
       <polygon points="180,18 324,99 324,261 180,342 36,261 36,99" stroke="#00c9a7" stroke-width="1.2" fill="none"/>
@@ -256,7 +240,6 @@
       <circle cx="36" cy="99" r="2.5" fill="#00c9a7" opacity="0.5"/>
     </svg>
   </div>
-
   <div class="hero-content">
     <div class="hero-label">GAME DEVELOPER & CREATIVE TECHNOLOGIST</div>
     <h1 class="hero-name">
@@ -291,7 +274,7 @@
         <div class="stat-label">Games Published</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">3+</div>
+        <div class="stat-number">4</div>
         <div class="stat-label">Certifications</div>
       </div>
       <div class="stat-card">
@@ -329,7 +312,7 @@
       <div class="game-card-body">
         <div class="game-tag">3D · EDUCATIONAL</div>
         <div class="game-title">Energy Hunter</div>
-        <div class="game-desc">A 3D educational game about energy conservation. Explore home and school environments to find and eliminate energy waste before time runs out.</div>
+        <div class="game-desc">A 3D educational game built solo in Unity using C# and Blender. Spans 2 levels with escalating object counts — players explore environments to find and interact with energy-wasting devices, each triggering contextual popups. All interaction logic and object control systems written from scratch in C#. WebGL build available on itch.io.</div>
         <div class="game-tech">
           <span class="tech-tag">Unity</span>
           <span class="tech-tag">C#</span>
@@ -363,7 +346,7 @@
       <div class="game-card-body">
         <div class="game-tag">2D · ARCADE</div>
         <div class="game-title">Endless Runner</div>
-        <div class="game-desc">A 2D endless runner built from scratch in Unity. Dodge obstacles and push your personal best score. Featuring custom physics and procedural generation.</div>
+        <div class="game-desc">A 2D arcade runner built solo in Unity. Features a custom Object Pooling system written in C# for optimized obstacle and environment spawning. Physics and scoring systems implemented from scratch. WebGL build available on itch.io.</div>
         <div class="game-tech">
           <span class="tech-tag">Unity</span>
           <span class="tech-tag">C#</span>
