@@ -143,9 +143,47 @@
     .game-desc { font-size: 13px; line-height: 1.6; color: #4a6080; margin-bottom: 20px; }
     .game-tech { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
     .tech-tag { padding: 4px 10px; background: rgba(0,201,167,0.07); border: 1px solid rgba(0,201,167,0.18); font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 1px; color: var(--accent); }
-    .game-link { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
-    .game-link:hover { color: var(--accent); }
+    .game-links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .game-link {
+      font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px;
+      color: var(--accent); text-decoration: none; text-transform: uppercase;
+      transition: color 0.3s; display: inline-block; cursor: pointer;
+      background: none; border: none; padding: 0;
+    }
+    .game-link:hover { color: #00f0c8; }
     .game-link::after { content: ' →'; }
+    .game-link-play {
+      font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px;
+      color: #050810; text-transform: uppercase;
+      background: var(--accent); border: none; padding: 8px 16px;
+      cursor: pointer; transition: all 0.3s; display: inline-block;
+    }
+    .game-link-play:hover { background: #00f0c8; transform: translateY(-1px); }
+
+    /* MODAL */
+    .game-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(5,8,16,0.96); align-items: center; justify-content: center;
+    }
+    .game-modal-overlay.active { display: flex; }
+    .game-modal {
+      width: 90vw; max-width: 980px;
+      background: var(--card-bg); border: 1px solid var(--accent);
+      display: flex; flex-direction: column;
+    }
+    .game-modal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+    }
+    .game-modal-title { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--accent); }
+    .game-modal-close {
+      font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--text-muted);
+      background: none; border: none; cursor: pointer; letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+    .game-modal-close:hover { color: var(--accent); }
+    .game-modal iframe { width: 100%; height: 62vh; border: none; display: block; }
+
     #work3d { background: var(--bg2); border-top: 1px solid var(--border); }
     .artstation-card {
       display: flex; align-items: center; gap: 48px;
@@ -165,7 +203,6 @@
     .artstation-title { font-family: 'Rajdhani', sans-serif; font-size: 32px; font-weight: 700; margin-bottom: 12px; }
     .artstation-desc { font-size: 14px; line-height: 1.7; color: #4a6080; margin-bottom: 24px; }
     .artstation-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-    /* CERTIFICATIONS */
     #certifications { background: var(--bg); border-top: 1px solid var(--border); }
     .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
     .cert-card {
@@ -178,23 +215,9 @@
       display: block;
     }
     .cert-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .cert-issuer {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px; letter-spacing: 2px;
-      color: var(--accent); text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .cert-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 18px; font-weight: 700;
-      color: var(--text); margin-bottom: 10px;
-      line-height: 1.3;
-    }
-    .cert-date {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px; letter-spacing: 1px;
-      color: var(--text-muted);
-    }
+    .cert-issuer { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+    .cert-name { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+    .cert-date { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--text-muted); }
     #skills { background: var(--bg2); border-top: 1px solid var(--border); }
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .skill-group { padding: 32px; background: var(--card-bg); border: 1px solid var(--border); }
@@ -233,6 +256,17 @@
   </style>
 </head>
 <body>
+
+<!-- GAME MODAL -->
+<div class="game-modal-overlay" id="gameModal">
+  <div class="game-modal">
+    <div class="game-modal-header">
+      <span class="game-modal-title" id="modalTitle">GAME</span>
+      <button class="game-modal-close" onclick="closeModal()">✕ CLOSE</button>
+    </div>
+    <iframe id="modalFrame" src="" allowfullscreen></iframe>
+  </div>
+</div>
 
 <nav>
   <div class="nav-logo">ŞÜ_DEV</div>
@@ -333,7 +367,7 @@
       <div class="game-card-body">
         <div class="game-tag">3D · EDUCATIONAL</div>
         <div class="game-title">Energy Hunter</div>
-        <div class="game-desc">A 3D educational game built solo in Unity using C# and Blender. Spans 2 levels with escalating object counts — players explore environments to find and interact with energy-wasting devices, each triggering contextual popups. All interaction logic and object control systems written from scratch in C#. WebGL build available on itch.io.</div>
+        <div class="game-desc">A 3D educational game built solo in Unity using C# and Blender. Spans 2 levels with escalating object counts — players explore environments to find and interact with energy-wasting devices, each triggering contextual popups. All interaction logic and object control systems written from scratch in C#.</div>
         <div class="game-tech">
           <span class="tech-tag">Unity</span>
           <span class="tech-tag">C#</span>
@@ -341,7 +375,10 @@
           <span class="tech-tag">3D</span>
           <span class="tech-tag">WebGL</span>
         </div>
-        <a href="https://winterap.itch.io/energy-hunter" target="_blank" class="game-link">Play on itch.io</a>
+        <div class="game-links">
+          <button class="game-link-play" onclick="openModal('Energy Hunter', 'https://itch.io/embed/3508547?bg_color=050810&amp;fg_color=00c9a7&amp;link_color=00c9a7&amp;border_color=131f35')">▶ Play Now</button>
+          <a href="https://winterap.itch.io/energy-hunter" target="_blank" class="game-link">itch.io</a>
+        </div>
       </div>
     </div>
 
@@ -359,12 +396,12 @@
           <span class="tech-tag">2D</span>
           <span class="tech-tag">WebGL</span>
         </div>
-        <a href="https://winterap.itch.io/endless-runner-2d-arcade-game" target="_blank" class="game-link">Play on itch.io</a>
+        <div class="game-links">
+          <button class="game-link-play" onclick="openModal('Endless Runner', 'https://itch.io/embed/3296527?bg_color=050810&amp;fg_color=00c9a7&amp;link_color=00c9a7&amp;border_color=131f35')">▶ Play Now</button>
+          <a href="https://winterap.itch.io/endless-runner-2d-arcade-game" target="_blank" class="game-link">itch.io</a>
+        </div>
       </div>
     </div>
-
-
-
 
     <div class="game-card reveal">
       <div class="game-card-img" style="background:#0d0a08;">
@@ -391,7 +428,7 @@
           <span class="tech-tag">3D</span>
           <span class="tech-tag">Survival</span>
         </div>
-        <span class="game-link" style="cursor:default; opacity:0.5;">In Development</span>
+        <span class="game-link" style="cursor:default; opacity:0.5; pointer-events:none;">In Development</span>
       </div>
     </div>
 
@@ -420,7 +457,7 @@
           <span class="tech-tag">3D</span>
           <span class="tech-tag">Tactical</span>
         </div>
-        <span class="game-link" style="cursor:default; opacity:0.5;">In Design</span>
+        <span class="game-link" style="cursor:default; opacity:0.5; pointer-events:none;">In Design</span>
       </div>
     </div>
 
@@ -471,31 +508,26 @@
   <div class="section-label">CERTIFICATIONS</div>
   <h2 class="section-title reveal">Credentials</h2>
   <div class="cert-grid">
-
     <a href="https://www.credly.com/badges/dcc36e5f-62dd-411d-92c9-a73cc190a7d8/linked_in_profile" target="_blank" class="cert-card reveal">
       <div class="cert-issuer">Unity</div>
       <div class="cert-name">Unity Junior Programmer</div>
       <div class="cert-date">June 2026</div>
     </a>
-
     <a href="https://learn.unity.com/u/635d68d2edbc2a2c57edc1ff" target="_blank" class="cert-card reveal">
       <div class="cert-issuer">Unity</div>
       <div class="cert-name">Unity Essentials — Publishing Fundamentals</div>
       <div class="cert-date">April 2026</div>
     </a>
-
     <a href="https://courses.edx.org/certificates/253fe4fc0fe64360b4fd95f02ff3a7cb" target="_blank" class="cert-card reveal">
       <div class="cert-issuer">edX</div>
       <div class="cert-name">From Code to Creation: Mastering Game Programming</div>
       <div class="cert-date">April 2025</div>
     </a>
-
     <a href="https://www.udemy.com/certificate/UC-7fc21217-2cf8-4f3e-9866-db13aa1c5865/" target="_blank" class="cert-card reveal">
       <div class="cert-issuer">Udemy</div>
       <div class="cert-name">Modeling with Blender — From Scratch to Advanced</div>
       <div class="cert-date">August 2025</div>
     </a>
-
   </div>
 </section>
 
@@ -550,6 +582,27 @@
 </footer>
 
 <script>
+  function openModal(title, embedUrl) {
+    document.getElementById('modalTitle').textContent = title.toUpperCase();
+    document.getElementById('modalFrame').src = embedUrl;
+    document.getElementById('gameModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('gameModal').classList.remove('active');
+    document.getElementById('modalFrame').src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('gameModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
